@@ -12,14 +12,14 @@ class Canvas(Window):
     def __init__(self, track_image_path, car_image_paths):
         super().__init__()
         self.is_simulating = True
-        print(car_image_paths)
         self.width = 960
         self.height = 540
         self.background_batch = Batch()
         self.cars_batch = Batch()
         self.track_image_sprite = Sprite(image.load(track_image_path), batch=self.background_batch)
         self.car_images = [image.load(c) for c in car_image_paths]
-
+        self.keyboard = key.KeyStateHandler()
+        self.push_handlers(self.keyboard)
     
     def simulate_generation(self):
         self.car_sprites = []
@@ -34,7 +34,9 @@ class Canvas(Window):
                 self.draw()
     
     def update(self, delta_time):
-        pass
+        for car_sprite in self.car_sprites:
+            car_sprite.update(delta_time, self.keyboard)
+
 
     def draw(self):
         self.clear()
