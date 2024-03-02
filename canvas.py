@@ -20,6 +20,7 @@ class Canvas(Window):
         self.cars_batch = Batch()
         self.overlay_batch = Batch()
         self.track_image_sprite = Sprite(track.track_image, batch=self.background_batch)
+        self.track_overlay_sprite = Sprite(track.track_overlay_image, batch=self.overlay_batch)
         self.car_images = [image.load(c) for c in car_image_paths]
        
     
@@ -27,7 +28,7 @@ class Canvas(Window):
         self.hud = Hud(simulation_round, self.overlay_batch)
         self.car_sprites = []
         for network in networks:
-            self.car_sprites.append(Car(network, random.choice(self.car_images), self.cars_batch))
+            self.car_sprites.append(Car(network,self.track, random.choice(self.car_images), self.cars_batch))
         self.population_total = len(self.car_sprites)  
         self.population_alive = self.population_total
         last_time = time.perf_counter()

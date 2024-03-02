@@ -1,10 +1,15 @@
 from pyglet import image
 import os
 import itertools
+import json
 
 class Track:
-    def __init__(self):
-        self.track_image = image.load(os.path.join("images", "parkinglot.png"))
+    def __init__(self, index):
+        self.track_image = image.load(os.path.join("images", f"track{index}.png"))
+        self.track_overlay_image = image.load(os.path.join("images", f"track{index}-overlay.png"))
+        with open(os.path.join("images", f"track{index}.json"), "r") as file:
+            data = json.load(file)
+        self.checkpoints = data["checkpoints"]
         pitch = self.track_image.width*len("RGBA")
         pixels = self.track_image.get_data("RGBA", pitch)
         map = [1 if b == (75,75,75,255) else 0 for b in itertools.batched(pixels, 4)]
