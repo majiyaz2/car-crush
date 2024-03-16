@@ -2,6 +2,8 @@ from pyglet.window import Window, key
 from pyglet import image 
 from pyglet.graphics import Batch
 from pyglet.sprite import Sprite
+from pyglet.shapes import Circle
+from pyglet.text import Label
 import time
 import random
 from car import Car
@@ -22,6 +24,10 @@ class Canvas(Window):
         self.track_image_sprite = Sprite(track.track_image, batch=self.background_batch)
         self.track_overlay_sprite = Sprite(track.track_overlay_image, batch=self.overlay_batch)
         self.car_images = [image.load(c) for c in car_image_paths]
+        self.checkpoint_sprites = []
+        for i, checkpoint in enumerate(track.checkpoints):
+            self.checkpoint_sprites.append((Circle(checkpoint[0], checkpoint[1], 15, color=(255,255,255,100), batch=self.background_batch),
+                                             Label(str(i), x=checkpoint[0], y=checkpoint[1],anchor_x="center",anchor_y="center", color=(255,255,255,255), batch=self.background_batch)))
        
     
     def simulate_generation(self, networks, simulation_round):
