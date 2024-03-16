@@ -46,6 +46,9 @@ class Canvas(Window):
                 self.dispatch_events()
                 self.update(elapsed_time)
                 self.draw()
+        for car in self.car_sprites:
+            
+            car.network.highest_checkpoint = car.last_checkpoint_passed
     
     def update(self, delta_time):
         for car_sprite in self.car_sprites:
