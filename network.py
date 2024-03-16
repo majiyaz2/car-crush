@@ -4,6 +4,7 @@ class Layer:
     def __init__(self, inputs_count, outputs_count):
         self.outputs = [0.0 for _ in range(outputs_count)]
         self.weights = [[random.random() * 2 - 1 for _i in range(inputs_count)] for _o in range(outputs_count)]
+        self.highest_checkpoint = 0
     
     def feed_forward(self, inputs):
         for output_index, output in enumerate(self.outputs):
@@ -24,3 +25,18 @@ class Network:
             layer.feed_forward(inputs)
             inputs = [i for i in layer.outputs]
         return self.layers[-1].outputs
+    def serialize(self):
+        chromosome = []
+        for layer in self.layers:
+            for outputs in layer.weights:
+                for weight in outputs:
+                    chromosome.append()
+        return RankableChromosome(self.self.highest_checkpoint, chromosome)
+    
+class RankableChromosome:
+    def __init__(self, highest_checkpoint, chromosome):
+        self.highest_checkpoint = highest_checkpoint
+        self.chromosome = chromosome
+    
+    def __lt__(self, other):
+        return self.highest_checkpoint > other.highest_checkpoint
