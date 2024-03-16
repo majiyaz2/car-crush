@@ -3,7 +3,7 @@ from pyglet.shapes import Line
 import math
 
 class Radar:
-    max_length_pixels = 150
+    max_length_pixels = 250
 
     def __init__(self, angle, batch):
         self.angle = angle
