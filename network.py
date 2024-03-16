@@ -30,8 +30,8 @@ class Network:
         for layer in self.layers:
             for outputs in layer.weights:
                 for weight in outputs:
-                    chromosome.append()
-        return RankableChromosome(self.self.highest_checkpoint, chromosome)
+                    chromosome.append(weight)
+        return RankableChromosome( self.highest_checkpoint, chromosome)
     
     def deserialize(self, chromosome):
         layer_index = 0
