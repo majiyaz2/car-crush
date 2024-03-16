@@ -6,6 +6,7 @@ from pyglet.shapes import Circle
 from pyglet.text import Label
 import time
 import random
+import math
 from car import Car
 from hud import Hud
 
@@ -52,6 +53,7 @@ class Canvas(Window):
             if car_sprite.is_running:
                 if not self.track.is_road(car_sprite.body.x, car_sprite.body.y):
                     car_sprite.shut_off()
+                self.check_checkpoints(car_sprite,self.track.checkpoints )
         running_cars = [c for c in self.car_sprites if c.is_running]
         self.population_alive = len(running_cars)
         if self.population_alive > 0:
@@ -70,4 +72,9 @@ class Canvas(Window):
             self.is_simulating = False
             print("Simulation aborted")
     
+    def check_checkpoints(self, car_sprite, checkpoints):
+        for i, checkpoint in enumerate(checkpoints):
+            length = math.sqrt((checkpoint[0] - car_sprite.body.x)**2 + (checkpoint[1] - car_sprite.body.y)**2)
+            if length < 40:
+                car_sprite.hit_checkpoint(i)
    

@@ -24,6 +24,7 @@ class Car:
         self.speed = 0.0
         self.rotation = 0.0
         self.is_running = True
+        self.last_checkpoint_passed = 0
     
     def update(self, delta_time):
         render_speed = delta_time * 60
@@ -63,7 +64,15 @@ class Car:
         radar.beam.x2 = x2
         radar.beam.y2 = y2
         return probe_length
+    
+    def hit_checkpoint(self, id):
+        print(id)
+        if id - self.last_checkpoint_passed == 1:
+            self.last_checkpoint_passed = id
+        elif id < self.last_checkpoint_passed:
+            self.shut_off()
 
+    
     def shut_off(self):
         self.is_running = False
         self.radars = None
