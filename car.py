@@ -66,7 +66,6 @@ class Car:
         return probe_length
     
     def hit_checkpoint(self, id):
-        print(id)
         if id - self.last_checkpoint_passed == 1:
             self.last_checkpoint_passed = id
         elif id < self.last_checkpoint_passed:
