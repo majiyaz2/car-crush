@@ -14,7 +14,6 @@ class Evolution:
         # cross over
         reproduction_times = (self.population_count - self.keep_count) / self.keep_count
         offspring = [c for c in keep_chromosomes]
-        print(offspring)
         for _ in range(int(reproduction_times)):
             for c1, c2 in itertools.batched(keep_chromosomes, 2):
                 split_index = random.randint(0,len(c1)-1)
@@ -22,6 +21,10 @@ class Evolution:
                 offspring.append(c2[:split_index] + c1[split_index:])
 
         #mutation
+        for chromosome in offspring[self.keep_count:]:
+            for i in range(len(chromosome)):
+                if random.randint(0,4) == 1:
+                    chromosome[i] = random.random() * 2 - 1
 
         assert len(offspring) == self.population_count, "Offspring count is not equal to population count"
         return offspring
