@@ -6,7 +6,7 @@ from storage import Storage
 import os
 
 car_image_paths = [os.path.join("images", f"car{i}.png") for i in range(5)]
-canvas = Canvas(Track(1), car_image_paths)
+canvas = Canvas(Track(3), car_image_paths)
 
 network_dimensions = 5,4,2
 population_count = 40
@@ -29,11 +29,11 @@ while simulation_round <= max_generation_iterations and canvas.is_simulating:
     if canvas.is_simulating:
         print(f"-- Average checkpoint reached: {sum (n.highest_checkpoint for n in networks) / len(networks):.2f}.")
         print(f"-- Cars reached goal: {sum (n.has_reached_goal for n in networks)} of population {population_count}")
+        print(f"-- Average edge distance: {sum (n.smallest_edge_distance for n in networks[:keep_count]) / keep_count:.2f}")
 
         serialized = [network.serialize() for network in networks]
         offspring = evolution.execute(serialized)
         storage.save(offspring[:keep_count])
-
         networks = []
         for chromosome in offspring:
             network = Network(network_dimensions)

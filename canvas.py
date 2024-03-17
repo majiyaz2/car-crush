@@ -48,6 +48,7 @@ class Canvas(Window):
                 self.draw()
         for car in self.car_sprites:
             car.network.highest_checkpoint = car.last_checkpoint_passed
+            car.network.smallest_edge_distance = car.smallest_edge_distance
             if car.last_checkpoint_passed == len(self.checkpoint_sprites)-1:
                 car.network.has_reached_goal = True
     

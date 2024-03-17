@@ -26,6 +26,7 @@ class Car:
         self.rotation = 0.0
         self.is_running = True
         self.last_checkpoint_passed = 0
+        self.smallest_edge_distance = 100
     
     def update(self, delta_time):
         render_speed = delta_time * 60
@@ -70,6 +71,8 @@ class Car:
             y2 = self.body.y + probe_length * math.sin(math.radians(self.rotation + radar.angle))
         radar.beam.x2 = x2
         radar.beam.y2 = y2
+        if probe_length<self.smallest_edge_distance:
+            self.smallest_edge_distance=probe_length
         return probe_length
     
     def hit_checkpoint(self, id):

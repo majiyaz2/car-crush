@@ -17,6 +17,7 @@ class Network:
     def __init__(self, dimensions):
         self.dimensions = dimensions
         self.has_reached_goal = False
+        self. smallest_edge_distance = 0
         self.layers = []
         for i in range(len(dimensions)-1):
             self.layers.append(Layer(dimensions[i], dimensions[i+1]))
@@ -33,7 +34,7 @@ class Network:
             for outputs in layer.weights:
                 for weight in outputs:
                     chromosome.append(weight)
-        return RankableChromosome( self.highest_checkpoint, chromosome)
+        return RankableChromosome( self.highest_checkpoint, self.smallest_edge_distance, chromosome)
     
     def deserialize(self, chromosome):
         layer_index = 0
@@ -51,9 +52,13 @@ class Network:
     
     
 class RankableChromosome:
-    def __init__(self, highest_checkpoint, chromosome):
+    def __init__(self, highest_checkpoint,smallest_edge_distance, chromosome):
         self.highest_checkpoint = highest_checkpoint
+        self.smallest_edge_distance = smallest_edge_distance
         self.chromosome = chromosome
     
     def __lt__(self, other):
+        if self.highest_checkpoint == other.highest_checkpoint:
+            self.smallest_edge_distance > other.smallest_edge_distance
         return self.highest_checkpoint > other.highest_checkpoint
+    
