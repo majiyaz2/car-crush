@@ -47,8 +47,9 @@ class Canvas(Window):
                 self.update(elapsed_time)
                 self.draw()
         for car in self.car_sprites:
-            
             car.network.highest_checkpoint = car.last_checkpoint_passed
+            if car.last_checkpoint_passed == len(self.checkpoint_sprites)-1:
+                car.network.has_reached_goal = True
     
     def update(self, delta_time):
         for car_sprite in self.car_sprites:

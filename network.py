@@ -16,6 +16,7 @@ class Layer:
 class Network:
     def __init__(self, dimensions):
         self.dimensions = dimensions
+        self.has_reached_goal = False
         self.layers = []
         for i in range(len(dimensions)-1):
             self.layers.append(Layer(dimensions[i], dimensions[i+1]))
