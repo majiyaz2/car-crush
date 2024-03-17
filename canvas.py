@@ -32,7 +32,7 @@ class Canvas(Window):
        
     
     def simulate_generation(self, networks, simulation_round):
-        self.hud = Hud(simulation_round, self.overlay_batch)
+        self.hud = Hud(simulation_round,networks[0].dimensions, self.overlay_batch)
         self.car_sprites = []
         for network in networks:
             self.car_sprites.append(Car(network,self.track, random.choice(self.car_images), self.cars_batch))
@@ -60,7 +60,7 @@ class Canvas(Window):
         running_cars = [c for c in self.car_sprites if c.is_running]
         self.population_alive = len(running_cars)
         if self.population_alive > 0:
-            self.hud.update(self.population_alive, self.population_total, running_cars[0].speed)
+            self.hud.update(running_cars[0].network, self.population_alive, self.population_total, running_cars[0].speed)
 
 
     def draw(self):
