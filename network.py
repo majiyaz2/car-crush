@@ -18,11 +18,14 @@ class Network:
         self.dimensions = dimensions
         self.has_reached_goal = False
         self. smallest_edge_distance = 0
+        self.highest_checkpoint = 0
         self.layers = []
+        self.inputs = [] 
         for i in range(len(dimensions)-1):
             self.layers.append(Layer(dimensions[i], dimensions[i+1]))
     
     def feed_forward(self, inputs):
+        print(inputs)
         self.inputs = [i for i in inputs]
         for layer in self.layers:
             layer.feed_forward(inputs)
