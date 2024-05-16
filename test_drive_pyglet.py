@@ -5,10 +5,10 @@ from storage import Storage
 import os
 
 car_image_paths = [os.path.join("images", f"car{i}.png") for i in range(5)]
-canvas = Canvas(Track(0), car_image_paths)
+canvas = Canvas(Track(4), car_image_paths)
 
 network_dimensions = 5,4,2
-population_count = 20
+population_count = 2
 max_generation_iterations = 10
 keep_count = 4
 

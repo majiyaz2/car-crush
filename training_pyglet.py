@@ -9,7 +9,7 @@ car_image_paths = [os.path.join("images", f"car{i}.png") for i in range(5)]
 canvas = Canvas(Track(3), car_image_paths)
 
 network_dimensions = 5,4,2
-population_count = 6
+population_count = 40
 max_generation_iterations = 10
 keep_count = 4
 

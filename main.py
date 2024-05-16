@@ -1,6 +1,7 @@
 
 from network import Network
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 from pydantic import BaseModel
 from network import Network
@@ -48,11 +49,18 @@ class NetworkList(BaseModel):
 
 app = FastAPI()
 
+origins = ["*"]
 
+app.add_middleware(CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"], )
 
 
 @app.post("/predict")
 def get_results(radars: RadarList, network: NetworkModel):
+    print(radars)
     return network.feed_forward([radar.length for radar in radars.radars])
 
 @app.get("/train")
