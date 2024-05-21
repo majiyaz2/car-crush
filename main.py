@@ -17,7 +17,7 @@ class Position(BaseModel):
     y: int
 
 class Radar(BaseModel):
-    length: int
+    length: float
     position: Position
     hasCollided: bool
 
