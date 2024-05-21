@@ -60,7 +60,6 @@ app.add_middleware(CORSMiddleware,
 
 @app.post("/predict")
 def get_results(radars: RadarList, network: NetworkModel):
-    print(radars)
     return network.feed_forward([radar.length for radar in radars.radars])
 
 @app.get("/train")
