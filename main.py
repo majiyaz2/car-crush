@@ -59,17 +59,17 @@ app.add_middleware(CORSMiddleware,
 
 
 @app.post("/predict")
-def get_results(radars: RadarList, network: NetworkModel):
-    return network.feed_forward([radar.length for radar in radars.radars])
+async def get_results(radars: RadarList, network: NetworkModel):
+    return await network.feed_forward([radar.length for radar in radars.radars])
 
 @app.get("/train")
-def train_brain():
+async def train_brain():
     trainer = Trainer()
     trainer.train()
     return trainer.networks
 
 @app.get("/test")
-def train_brain():
+async def train_brain():
     tester = Tester()
     tester.test()
     return tester.networks

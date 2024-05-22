@@ -24,7 +24,7 @@ class Network:
         for i in range(len(dimensions)-1):
             self.layers.append(Layer(dimensions[i], dimensions[i+1]))
     
-    def feed_forward(self, inputs):
+    async def feed_forward(self, inputs):
         self.inputs = [i for i in inputs]
         for layer in self.layers:
             layer.feed_forward(inputs)

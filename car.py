@@ -28,13 +28,13 @@ class Car:
         self.last_checkpoint_passed = 0
         self.smallest_edge_distance = 100
     
-    def update(self, delta_time):
+    async def update(self, delta_time):
         render_speed = delta_time * 60
         self.speed -= 0.05
 
         if self.is_running:
             measurements = [self.probe(radar) / radar.max_length_pixels for radar in self.radars]
-            acceleration, steer_position = self.network.feed_forward(measurements)
+            acceleration, steer_position = await self.network.feed_forward(measurements)
 
             if acceleration > 0:
                 self.speed += 0.1

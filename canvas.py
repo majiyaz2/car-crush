@@ -31,7 +31,7 @@ class Canvas(Window):
                                              Label(str(i), x=checkpoint[0], y=checkpoint[1],anchor_x="center",anchor_y="center", color=(255,255,255,255), batch=self.background_batch)))
        
     
-    def simulate_generation(self, networks, simulation_round):
+    async def simulate_generation(self, networks, simulation_round):
         self.hud = Hud(simulation_round,networks[0].dimensions, self.overlay_batch)
         self.car_sprites = []
         for network in networks:
@@ -44,7 +44,7 @@ class Canvas(Window):
             if elapsed_time > self.frame_duration:
                 last_time = time.perf_counter()
                 self.dispatch_events()
-                self.update(elapsed_time)
+                await self.update(elapsed_time)
                 self.draw()
         for car in self.car_sprites:
             car.network.highest_checkpoint = car.last_checkpoint_passed
@@ -52,9 +52,9 @@ class Canvas(Window):
             if car.last_checkpoint_passed == len(self.checkpoint_sprites)-1:
                 car.network.has_reached_goal = True
     
-    def update(self, delta_time):
+    async def update(self, delta_time):
         for car_sprite in self.car_sprites:
-            car_sprite.update(delta_time)
+            await car_sprite.update(delta_time)
             if car_sprite.is_running:
                 if not self.track.is_road(car_sprite.body.x, car_sprite.body.y):
                     car_sprite.shut_off()
