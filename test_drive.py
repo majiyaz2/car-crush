@@ -16,16 +16,18 @@ class Tester():
         self.storage = Storage("brain.json")
         self.best_chromosomes = self.storage.load()
         self.simulation_round = 1
-        for c, n in zip(self.best_chromosomes, self.networks):
-            n.deserialize(c)
+        
 
         
 
     def test(self):
 
+        for c, n in zip(self.best_chromosomes, self.networks):
+            n.deserialize(c)
+
         while self.simulation_round <= self.max_generation_iterations:
             print(f"=== Round: {self.simulation_round} ===")
-            self.simulate_generation()
+            # self.simulate_generation()
             self.simulation_round +=1
 
             print(f"-- Average checkpoint reached: {sum (n.highest_checkpoint for n in self.networks) / len(self.networks):.2f}.")

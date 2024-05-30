@@ -10,7 +10,7 @@ async def run_sim():
     canvas = Canvas(Track(4), car_image_paths)
 
     network_dimensions = 5,4,2
-    population_count = 2
+    population_count = 4
     max_generation_iterations = 10
     keep_count = 4
 

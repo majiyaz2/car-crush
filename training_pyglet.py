@@ -13,7 +13,7 @@ async def run_sim():
 
     network_dimensions = 5,4,2
     population_count = 40
-    max_generation_iterations = 10
+    max_generation_iterations = 100
     keep_count = 4
 
     networks = [Network(network_dimensions) for _ in range(population_count)]
@@ -22,6 +22,7 @@ async def run_sim():
     best_chromosomes = storage.load()
     for c, n in zip(best_chromosomes, networks):
         n.deserialize(c)
+        
 
     simulation_round = 1
     while simulation_round <= max_generation_iterations and canvas.is_simulating:
