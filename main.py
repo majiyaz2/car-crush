@@ -33,7 +33,7 @@ class LayerModel(BaseModel, Layer):
 class NetworkModel(BaseModel, Network):
     dimensions: List[int]
     hasReachedGoal: bool
-    smallestEdgeDistance: int
+    smallestEdgeDistance: float
     layers: List[LayerModel]
     inputs: List[int]
 
