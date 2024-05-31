@@ -35,7 +35,7 @@ class Car:
         if self.is_running:
             measurements = [self.probe(radar) / radar.max_length_pixels for radar in self.radars]
             acceleration, steer_position = await self.network.feed_forward(measurements)
-
+            print(acceleration,steer_position)
             if acceleration > 0:
                 self.speed += 0.1
 
